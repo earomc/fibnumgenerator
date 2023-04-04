@@ -94,7 +94,17 @@ public class RecursiveGenerator implements FibonacciNumberGenerator{
     }
 
     @Override
-    public long getIteration() {
+    public long getCurrentIteration() {
         return 0;
+    }
+
+    @Override
+    public long getRequestedIteration() {
+        return 0;
+    }
+
+    @Override
+    public BigInteger gen(long n) {
+        return gen((int) n);
     }
 }

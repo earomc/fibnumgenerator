@@ -7,8 +7,13 @@ public interface FibonacciNumberGenerator {
 
     long[] FIBONACCIS = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55};
 
-    default BigInteger gen(long n){return null;}
-    default BigInteger gen(int n){return null;}
+    BigInteger gen(long n);
+    default BigInteger gen(int n) {
+        return gen((long) n);
+    }
 
-    long getIteration();
+    long getRequestedIteration();
+    long getCurrentIteration();
+
+
 }

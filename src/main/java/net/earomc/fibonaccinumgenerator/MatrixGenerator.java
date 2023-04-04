@@ -1,8 +1,7 @@
 package net.earomc.fibonaccinumgenerator;
 
+import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <a href="https://muthu.co/fast-nth-fibonacci-number-algorithm/">...</a>
@@ -27,11 +26,20 @@ public class MatrixGenerator implements FibonacciNumberGenerator {
 
 
     @Override
-    public long getIteration() {
+    public long getCurrentIteration() {
         return 0;
     }
 
-    private long i;
+
+    @Override
+    public long getRequestedIteration() {
+        return requestedIteration;
+    }
+
+
+    private long requestedIteration;
+    private volatile long currentIteration;
+
 
 
     private static long[][] genMatrix(int n) {
@@ -74,5 +82,15 @@ public class MatrixGenerator implements FibonacciNumberGenerator {
             cell += firstMatrix[row][i] * secondMatrix[i][col];
         }
         return cell;
+    }
+
+    @Override
+    public BigInteger gen(long n) {
+        return null;
+    }
+
+    @Override
+    public BigInteger gen(int n) {
+        return null;
     }
 }

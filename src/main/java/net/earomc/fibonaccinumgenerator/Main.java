@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("MaxMemory: " + (Runtime.getRuntime().maxMemory() / 1.074e+9));
-        System.out.println("FreeMemory: " + Runtime.getRuntime().freeMemory() / 1.074e+9);
-        System.out.println("TotalMemory: " + Runtime.getRuntime().totalMemory() / 1.074e+9);
+        System.out.println("MaxMemory: " + (Runtime.getRuntime().maxMemory() / 1.074e+9) + "G");
+        System.out.println("FreeMemory: " + Runtime.getRuntime().freeMemory() / 1.074e+9 + "G");
+        System.out.println("TotalMemory: " + Runtime.getRuntime().totalMemory() / 1.074e+9 + "G");
         NoArrayGenerator generator = new NoArrayGenerator();
         while (true) {
             String s = new Scanner(System.in).nextLine();
@@ -29,23 +29,26 @@ public class Main {
         }
     }
 
-    private static void askForGen(NoArrayGenerator generator, int n) {
+
+    private static void askForGen(FibonacciNumberGenerator generator, int n) {
         System.out.println("Generating " + englishCounter(n) + " Fibonacci Number ...");
         BigInteger fib;
         StopWatch memClearWatch = new StopWatch().start();
         //fib = generator.genSmart(n - 1, true);
-        fib = generator.genAndSendUpdate(n - 1);
-
-
-        printFib(fib, n - 1, false);
-
+        ProgressUpdater progressUpdater = new ProgressUpdater(generator);
+        progressUpdater.start();
+        fib = generator.gen(n - 1);
+        progressUpdater.stop();
+        System.out.println("\n" + englishCounter(n) + " Fibonacci Number:");
+        printNumber(fib, false);
+        printNumber(fib, true);
         Duration memClearDur = memClearWatch.stop();
         System.out.println("Took: ");
         StopWatch.printDuration(memClearDur);
     }
 
-    private static void printFib(BigInteger fib, int i, boolean scientific) {
-        System.out.println(englishCounter(i + 1) + " Fibonacci Number: " + (scientific ? formatBigIntScientific(fib) : formatBigIntCommas(fib)));
+    private static void printNumber(BigInteger fib, boolean scientific) {
+        System.out.println(scientific ? "Scientific: " + formatBigIntScientific(fib) : "Base10: " + formatBigIntCommas(fib));
     }
 
     private static String englishCounter(long n) {

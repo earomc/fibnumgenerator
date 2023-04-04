@@ -8,10 +8,8 @@ import static net.earomc.fibonaccinumgenerator.Main.formatDuration;
 public class StopWatch {
 
     private Instant start;
-    private Thread thread;
 
     public StopWatch() {
-
     }
 
     public StopWatch start() {
